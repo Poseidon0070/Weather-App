@@ -1,0 +1,171 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+    <form action="/" method="post">
+        <label for="city">Enter City Name : </label>
+        <input type="text" name="cityName" id="city">
+        <button type="submit">GO</button>
+    </form>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>GIF & Images</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body{
+            margin : 0px;
+            overflow: hidden;
+        }
+        .container{
+            height: 30vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000;
+            z-index: -1;
+        }
+        #form{
+            background-color: #0F6292;
+            height: 30vh;
+            width: 20vw;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border: 3px solid rgb(5, 5, 5);
+            align-content: center;
+            text-align: center;
+            border-radius: 10px;
+        }
+        #gif:hover{
+            background-color: aqua;
+        }
+        #gif{
+            width: 30pvh;
+            height: 30px;
+            cursor: pointer;
+            background-color: rgb(189, 178, 200);
+        }
+        #submit{
+            width: 350px;
+            margin-top: 10px;
+            cursor: pointer;
+            background-color: #434242;
+            border-radius: 10px;
+        }
+        #submit:hover{
+            background-color: aqua;
+        }
+        #Info{
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #cityname{
+            color: red;
+            font-style: italic;
+            font-size: large;
+        }
+        #city{
+            border-radius: 5px;
+        }
+        #btn{
+            border-radius: 10px;
+            color: red;
+            background-color: aqua;
+            width: 20vw;
+        }
+        #form{
+            border: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="fixed" id="Info">
+        <form action="/" method="post" id="form">
+            <label for="city"><h1 id="cityname">Enter City Name :</h1> </label><br>
+            <input type="text" name="cityName" id="city" placeholder="Enter city..."><br><br>
+            <button type="submit" id="btn">GO</button>
+        </form>
+    </div>
+    <canvas id = "canvas"></canvas>
+    <script>
+        let canvas = document.getElementById('canvas');
+        let c = canvas.getContext("2d");
+        canvas.style.backgroundColor = "rgba(0,0,0,1)";
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+
+        const particles = [];
+
+        window.addEventListener('resize',function(){
+            canvas.height = window.innerHeight;
+            canvas.width = window.innerWidth;
+            init();
+        })
+
+        function partice(x,y,radii,dx,dy){
+            this.x = x,
+            this.y = y,
+            this.radii = radii,
+            this.velocity = {
+                Xvel : dx,
+                Yvel : dy
+            }
+
+            this.draw = function(){
+                c.beginPath();
+                c.arc(this.x,this.y,this.radii,0,Math.PI*2);
+                c.fillStyle = "white";
+                c.fill();
+            }
+
+            this.update = function(){
+                if(this.x > innerWidth || this.y > innerHeight){
+                    this.x = Math.random()*innerWidth;
+                    this.y = 0;
+                }else{
+                    this.y += this.velocity.Yvel
+                    this.draw();
+                }
+            }
+        }
+
+        function init(){
+            particle = [];
+        }
+
+        for(let i=0;i<100;i++){
+            particles.push(new partice(Math.random()*innerWidth,Math.random()*innerHeight,Math.random()*(3-2)+1,0.5,0.3));
+        }
+
+        function animate(){
+            c.fillStyle=`rgba(0,0,0,0.07)`;
+            c.fillRect(0,0,innerWidth,innerHeight);   
+            particles.forEach((particle)=>{
+                particle.update();
+            })
+            requestAnimationFrame(animate);
+        }
+        init();
+        animate();
+
+    </script>
+</body>
+</html> 
